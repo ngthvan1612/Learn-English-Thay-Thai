@@ -1,4 +1,4 @@
-using LFF.Core.Base;
+﻿using LFF.Core.Base;
 using Newtonsoft.Json;
 using System;
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using LFF.Core.Base;
 using Newtonsoft.Json;
+
 namespace LFF.Core.Utils.Questions
 {
     public class QuestionModelBaseMeta : ICloneable
@@ -11,10 +12,12 @@ namespace LFF.Core.Utils.Questions
         /// Version câu hỏi (không phải version của nội dung) mà là version của trình xử lý câu hỏi
         /// </summary>
         public int Version { get; set; } = 0;
+
         /// <summary>
         /// Loại câu hỏi
         /// </summary>
         public string Type { get; set; } = "<Unknown type>";
+
         public object Clone()
         {
             return new QuestionModelBaseMeta()
@@ -24,10 +27,12 @@ namespace LFF.Core.Utils.Questions
             };
         }
     }
+
     public abstract class QuestionModelAbstract : ICloneable
     {
         public QuestionModelBaseMeta Meta { get; set; }
         public List<string> Solutions { get; set; }
+
         public QuestionModelAbstract()
         {
             this.Meta = new QuestionModelBaseMeta();
@@ -44,6 +49,7 @@ namespace LFF.Core.Utils.Questions
         {
             this.ValidateFields();
         }
+
         public bool RunValidationWithoutThrowException(ref string error_message)
         {
             try
@@ -57,11 +63,14 @@ namespace LFF.Core.Utils.Questions
                 return false;
             }
         }
+
         protected virtual void ValidateFields()
         {
             if (!new string[] { QuestionModelTypeDefintion.QUESTION_TYPE_MULTIPLE_CHOICE }.Contains(this.Meta.Type))
                 throw BaseDomainException.BadRequest($"Không rõ mã định danh câu hỏi <'{this.Meta.Type}'>");
         }
+
+        public abstract QuestionModelAbstract AsView();
 
         public abstract bool CheckAnswerIsValid(object? answer);
 

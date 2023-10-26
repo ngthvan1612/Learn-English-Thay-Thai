@@ -4,15 +4,18 @@ using LFF.Core.DTOs.StudentTests.Responses;
 using LFF.Core.Entities;
 using System;
 using System.Threading.Tasks;
+
 namespace LFF.Core.Services.StudentTestServices
 {
     public partial class StudentTestService
     {
+
         public virtual async Task<ResponseBase> CreateStudentTestAsync(CreateStudentTestRequest model)
         {
             var userRepository = this.aggregateRepository.UserRepository;
             var testRepository = this.aggregateRepository.TestRepository;
             var studentTestRepository = this.aggregateRepository.StudentTestRepository;
+
             var entity = new StudentTest();
             entity.StudentId = model.StudentId;
             entity.TestId = model.TestId;
@@ -25,17 +28,19 @@ namespace LFF.Core.Services.StudentTestServices
             {
                 throw BaseDomainException.BadRequest($"không tồn tại người dùng nào với id = {model.StudentId}");
             }
+
             if (!await testRepository.CheckTestExistedByIdAsync(model.TestId))
             {
                 throw BaseDomainException.BadRequest($"không tồn tại bài kiểm tra nào với id = {model.TestId}");
             }
+
             if ((await userRepository.GetUserByIdAsync(model.StudentId)).Role != UserRoles.Student)
             {
                 throw BaseDomainException.BadRequest("Chỉ có học viên mới có thể làm bài kiểm tra");
             }
 
             //Validate có đang kiểm tra gì không?
-            if (await studentTestRepository.IsDoingAnyTest(model.StudentId))
+            if (await this.aggregateRepository.TestRepository.IsDoingAnyTest(model.StudentId))
                 throw BaseDomainException.BadRequest("Bạn đang có một bài kiểm tra chưa hoàn tất");
 
             //Validate thời gian làm bài
@@ -48,7 +53,7 @@ namespace LFF.Core.Services.StudentTestServices
             //Validate số lần làm bài
             if (currentTest.NumberOfAttempts >= 0)
             {
-                int numberOfTimes = await studentTestRepository.NumberOfTimesAttemptTest(model.StudentId, model.TestId);
+                int numberOfTimes = await this.aggregateRepository.TestRepository.NumberOfTimesAttemptTest(model.StudentId, model.TestId);
                 if (numberOfTimes + 1 > currentTest.NumberOfAttempts)
                     throw BaseDomainException.BadRequest($"Bài kiểm tra này chỉ có thể làm tối đa {currentTest.NumberOfAttempts} lần");
             }
@@ -57,6 +62,7 @@ namespace LFF.Core.Services.StudentTestServices
             await studentTestRepository.CreateAsync(entity);
 
             //Log
+
             return await Task.FromResult(new CreateStudentTestResponse(entity));
         }
     }
