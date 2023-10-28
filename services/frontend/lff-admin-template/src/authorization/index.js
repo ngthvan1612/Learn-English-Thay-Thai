@@ -27,7 +27,27 @@ const getCurrentUserRole = () => {
   }
 }
 
+const getCurrentUserName = () => {
+  try {
+    const userName = JSON.parse(localStorage.getItem('USER_DATA')).data.username;
+    return userName;
+  }
+  catch (err) {
+    return null;
+  }
+}
+
+const getCurrentUserId = () => {
+  try {
+    const userId = JSON.parse(localStorage.getItem('USER_DATA')).data.id;
+    return userId;
+  }
+  catch (err) {
+    return null;
+  }
+}
+
 export {
-  getAccessToken, getCurrentUserRole,
+  getAccessToken, getCurrentUserRole, getCurrentUserName, getCurrentUserId,
   ROLE_ADMIN, ROLE_STAFF, ROLE_STUDENT, ROLE_TEACHER
 }

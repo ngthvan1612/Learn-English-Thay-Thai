@@ -1,0 +1,70 @@
+import { Affix, Button, Card, Col, Row, Space } from 'antd';
+import React, { useEffect, useRef, useState } from 'react';
+import { createRef } from 'react';
+import QuestionView from './layout/QuestionView';
+import ListQuestionContainer from './layout/ListQuestionContainer';
+import TestContainer from './layout/TestContainer';
+import { getAllRegisters } from '../../api/admin/register';
+import { TEST_MODE_EXAM, TEST_MODE_RESULT, TEST_MODE_REVIEW } from './layout/type';
+import CreateMultipleChoiceModal from './layout/MultipleChoice/CreateMultipleChoiceModal';
+
+function App(props) {
+
+  const questionMultipleChoice = JSON.parse(localStorage.getItem('Q1'))
+
+  const [questionWithResponses, setQuestionWithResponses] = useState([])
+
+  useEffect(() => {
+    let temp = localStorage.getItem('ANSWER');
+    if (temp == null)
+      temp = '{}';
+    const store = JSON.parse(temp);
+    const list = []
+    for (let i = 0; i < 60; ++i) {
+      const temp = { ...questionMultipleChoice };
+      temp.order = i + 1;
+      temp.id = "cau-hoi-" + (i + 1);
+      list.push({
+        question: temp,
+        selected: store[temp.id]
+      });
+    }
+    setQuestionWithResponses(list);
+  }, [])
+
+  function saveAnswer(questionId, selectedItem) {
+    if (localStorage.getItem('ANSWER') == null) {
+      localStorage.setItem('ANSWER', '{}');
+    }
+    const store = JSON.parse(localStorage.getItem('ANSWER'));
+    const newStore = {
+      ...store,
+    };
+    newStore[questionId] = selectedItem;
+    localStorage.setItem('ANSWER', JSON.stringify(newStore));
+  }
+
+  const [currentMode, setCurrentMode] = useState(TEST_MODE_EXAM)
+  const [testOpenCreateMultipleChoice, setOpenMultipleChoice] = useState(false);
+  
+  return (
+    <>
+      <Button onClick={() => setOpenMultipleChoice(!testOpenCreateMultipleChoice)}>Create</Button>
+      <CreateMultipleChoiceModal isOpen={testOpenCreateMultipleChoice} setModalOpen={setOpenMultipleChoice}/>
+      <Button onClick={() => setCurrentMode(currentMode == TEST_MODE_EXAM ? TEST_MODE_RESULT : TEST_MODE_EXAM)}>Đổi mode</Button>
+      <TestContainer
+        mode={currentMode}
+        numberOfQuestionMarkIconsPerRow={5}
+        listQuestionAndAnswer={questionWithResponses}
+        onAnswerChanged={(question, answer) => {
+          console.log('%c[DEBUG] luu lai ' + question.id + ' ' + answer, 'color: blue; font-size: 20px');
+          saveAnswer(question.id, answer);
+        }}
+        onSubmit={() => {
+          alert('nop bai nha')
+        }}
+      />
+    </>
+  );
+};
+export default App;

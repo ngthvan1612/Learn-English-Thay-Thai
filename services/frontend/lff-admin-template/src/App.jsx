@@ -10,10 +10,9 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/admin" exact="true" element={<AdminLayout/>}>
-            <Route exact="true" index element={<>hello nha</>}/>
+            <Route exact="true" index element={''}/>
             <Route exact="true" path="user/staff" element={<StaffManagementPage/>}/>
             <Route exact="true" path="user/teacher" element={<TeacherManagementPage/>}/>
-            <Route exact="true" path="user/student" element={<StudentManagementPage/>}/>
           </Route>
         </Routes>
       </BrowserRouter>

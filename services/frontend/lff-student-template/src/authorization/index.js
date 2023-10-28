@@ -28,13 +28,36 @@ const getCurrentUserRole = () => {
 }
 
 const getCurrentUserData = () => {
-  const USER_DATA = JSON.parse(localStorage.getItem('USER_DATA')).data;
-  return USER_DATA
+  try {
+    const USER_DATA = JSON.parse(localStorage.getItem('USER_DATA')).data;
+    return USER_DATA;
+  }
+  catch (err) {
+    return null;
+  }
 }
 
-const getCurrentUserId = () => getCurrentUserData().id;
+const getCurrentUserName = () => {
+  try {
+    const userName = JSON.parse(localStorage.getItem('USER_DATA')).data.username;
+    return userName;
+  }
+  catch (err) {
+    return null;
+  }
+}
+
+const getCurrentUserId = () => {
+  try {
+    const userId = JSON.parse(localStorage.getItem('USER_DATA')).data.id;
+    return userId;
+  }
+  catch (err) {
+    return null;
+  }
+}
 
 export {
-  getAccessToken, getCurrentUserRole, getCurrentUserData, getCurrentUserId,
+  getAccessToken, getCurrentUserRole, getCurrentUserData, getCurrentUserId, getCurrentUserName,
   ROLE_ADMIN, ROLE_STAFF, ROLE_STUDENT, ROLE_TEACHER,
 }

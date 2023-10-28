@@ -44,11 +44,15 @@ const updateUserPassword = async(userId, newPassword) => await sendPost(`admin/u
   password: newPassword
 })
 
+const changeMyPassword = async(userId, oldPassword, newPassword) => await sendPost(`/admin/user/change-password`, {
+  oldPassword, newPassword
+});
+
 //DELETE
 const deleteUserById = async (id) => await sendDelete(`admin/user/${id}`)
 
 export {
   createUser, deleteUserById, getAllUsers, updateUser, getAllTeachers,
   createStudent, createUserWithRole, getListUserByRole as getListsUserByRole,
-  updateUserPassword, getAllStudents
+  updateUserPassword, getAllStudents, changeMyPassword
 }
