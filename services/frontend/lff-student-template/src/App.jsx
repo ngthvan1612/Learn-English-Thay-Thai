@@ -9,6 +9,7 @@ export default function App() {
         <Routes>
           <Route path="/student" exact="true" element={<StudentLayout/>}>
             <Route exact="true" index element={<StudentInfoPage/>}/>
+            <Route exact="true" path='time-table' element={<TimeTableViewPagePage/>}/>
           </Route>
         </Routes>
       </BrowserRouter>
