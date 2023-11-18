@@ -1,0 +1,44 @@
+.ql-container > .ql-editor > p {
+    font-size: 1.05rem;
+    margin-top: 0px;
+    margin-bottom: 1.05rem;
+}
+
+.ql-container > .ql-editor > h3 {
+    font-size: 1.5rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.ql-container > .ql-editor > h2 {
+    font-size: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.ql-container > .ql-editor > h1 {
+    font-size: 2.5rem;
+    margin-top: 2.5rem;
+    margin-bottom: 2.5rem;
+}
+
+.ql-container > .ql-editor > ol > li {
+    font-size: 1.05rem;
+    margin-bottom: 1.05rem;
+}
+
+.ql-container > .ql-editor > ul > li {
+    font-size: 1.05rem;
+    margin-bottom: 0.5rem;
+}
+
+/* For viewing */
+.ql-rich-text-view .ql-toolbar {
+    display: none;
+}
+
+.ql-rich-text-view .ql-container.ql-snow.ql-disabled {
+    border: none;
+}
+
+/* For editing */
