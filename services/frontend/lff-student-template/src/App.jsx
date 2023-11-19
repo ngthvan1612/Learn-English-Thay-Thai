@@ -4,6 +4,7 @@ import StudentInfoPage from "./pages/StudentInfoPage"
 import ListClassroomViewPage from "./pages/ListClassroomViewPage"
 import ClassroomViewPage from "./pages/ClassroomViewPage"
 import LessonViewPage from "./pages/LessonViewPage"
+import ListTestViewPage from "./pages/ListTestViewPage"
 
 export default function App() {
   return (
@@ -16,6 +17,7 @@ export default function App() {
             <Route exact="true" path='classroom' element={<ListClassroomViewPage/>}/>
             <Route exact="true" path='classroom/:id' element={<ClassroomViewPage/>}/>
             <Route exact="true" path='classroom/:classroomId/lesson/:lessonId/lecture' element={<LessonViewPage/>}/>
+            <Route exact="true" path='classroom/:classroomId/lesson/:lessonId/test' element={<ListTestViewPage/>}/>
           </Route>
         </Routes>
       </BrowserRouter>
