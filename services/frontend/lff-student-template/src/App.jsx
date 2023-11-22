@@ -1,10 +1,11 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import StudentLayout from "./pages/StudentLayout"
 import StudentInfoPage from "./pages/StudentInfoPage"
+import TimeTableViewPagePage from "./pages/TimeTableViewPage"
 import ListClassroomViewPage from "./pages/ListClassroomViewPage"
 import ClassroomViewPage from "./pages/ClassroomViewPage"
-import LessonViewPage from "./pages/LessonViewPage"
 import ListTestViewPage from "./pages/ListTestViewPage"
+import TestViewPage from "./pages/TestViewPage"
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
             <Route exact="true" path='classroom/:id' element={<ClassroomViewPage/>}/>
             <Route exact="true" path='classroom/:classroomId/lesson/:lessonId/lecture' element={<LessonViewPage/>}/>
             <Route exact="true" path='classroom/:classroomId/lesson/:lessonId/test' element={<ListTestViewPage/>}/>
+            <Route exact="true" path='classroom/:classroomId/lesson/:lessonId/test/:testId/:studentTestId/:mode' element={<TestViewPage/>}/>
           </Route>
         </Routes>
       </BrowserRouter>
