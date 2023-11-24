@@ -13,7 +13,7 @@ jobs:
       - name: Login docker
         run: docker login -u ngthvan1612 -p NguyenVan104
       - name: Build backend
-        run: cd services/backend/LFF.Backend && docker build -t ghcr.io/ngthvan1612/learn-english-thay-thai/backend .
+        run: cd services/backend/LFF.Backend && docker build -t ngthvan1612/learn-english-thay-thai/backend .
       - name: Push image
-        run: docker push ghcr.io/ngthvan1612/learn-english-thay-thai/backend
+        run: docker push ngthvan1612/learn-english-thay-thai/backend
 
