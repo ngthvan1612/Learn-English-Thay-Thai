@@ -1,0 +1,13 @@
+name: CI - Backend
+on:
+  push:
+    paths:
+      - "services/backend/LFF.Backend/**/*"
+jobs:
+  container-test-job:
+    runs-on: ubuntu-latest
+    container:
+      image: docker:dind
+    steps:
+      - name: Build backend
+        run:  cd services/LFF.Backend && docker build -t backend .
