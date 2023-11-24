@@ -1,10 +1,9 @@
 {
   "compilerOptions": {
-    "outDir": "./dist",
+    "outDir": "./build",
     "target": "ES2020",
     "declaration": true,
     "module": "NodeNext",
-    "moduleResolution": "Node",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strictPropertyInitialization": false,
@@ -12,10 +11,6 @@
     "skipLibCheck": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "types": [
-      "jest",
-      "express"
-    ],
     "baseUrl": "."
   },
   "ts-node": {
