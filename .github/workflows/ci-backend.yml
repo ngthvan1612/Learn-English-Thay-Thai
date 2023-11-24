@@ -11,6 +11,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Build backend
-        run:  cd services/backend/LFF.Backend \
-              && docker build -t backend .
+        run:  >
+            cd services/backend/LFF.Backend && \
+            docker build -t ghcr.io/ngthvan1612/Learn-English-Thay-Thai/backend . && \
+            docker push ghcr.io/ngthvan1612/Learn-English-Thay-Thai/backend
 
