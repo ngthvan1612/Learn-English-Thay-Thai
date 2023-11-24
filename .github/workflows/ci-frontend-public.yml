@@ -1,4 +1,4 @@
-name: CI - Backend
+name: CI - Frontend public
 on:
   pull_request:
     paths:
