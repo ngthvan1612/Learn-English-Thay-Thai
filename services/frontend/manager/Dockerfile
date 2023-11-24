@@ -17,3 +17,4 @@ WORKDIR /deploy
 COPY --from=build-env /app/build/ .
 
 COPY ./nginx.conf /etc/nginx/nginx.conf
+

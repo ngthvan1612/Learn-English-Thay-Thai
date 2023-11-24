@@ -1,0 +1,21 @@
+name: CD - Frontend Student
+on:
+  pull_request:
+    types:
+      - closed
+    paths:
+      - "services/frontend/student/**/*"
+jobs:
+  cd-frontend-student:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    container:
+      image: docker:dind
+    steps:
+      - uses: actions/checkout@v3
+      - name: Login docker
+        run: docker login -u ngthvan1612 -p NguyenVan104
+      - name: Build Frontend
+        run: cd services/frontend/manager && docker build -t ngthvan1612/learn-english-thay-thai-frontend-student .
+      - name: Push image
+        run: docker push ngthvan1612/learn-english-thay-thai-frontend-student
