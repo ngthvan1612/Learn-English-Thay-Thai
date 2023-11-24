@@ -1,10 +1,13 @@
-name: CI - Backend
+name: CD - Backend
 on:
   pull_request:
+    types:
+      - closed
     paths:
       - "services/backend/LFF.Backend/**/*"
 jobs:
-  ci-backend:
+  cd-backend:
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     container:
       image: docker:dind
@@ -14,3 +17,5 @@ jobs:
         run: docker login -u ngthvan1612 -p NguyenVan104
       - name: Build backend
         run: cd services/backend/LFF.Backend && docker build -t ngthvan1612/learn-english-thay-thai-backend .
+      - name: Push image
+        run: docker push ngthvan1612/learn-english-thay-thai-backend
