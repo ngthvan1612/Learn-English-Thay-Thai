@@ -10,5 +10,5 @@ jobs:
       image: docker:dind
     steps:
       - name: Build backend
-        run:  ls / && cd services/LFF.Backend && docker build -t backend .
+        run:  echo $PWD && cd services/LFF.Backend && docker build -t backend .
 
