@@ -14,4 +14,3 @@ COPY --from=build-sdk /app/bin/Release/net6.0/ /app
 WORKDIR /app
 
 CMD dotnet LFF.Backend.dll --urls="http://0.0.0.0"
-
