@@ -9,7 +9,7 @@ jobs:
     container:
       image: docker:dind
     env:
-      PAT: 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
+      PAT: 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
     steps:
       - uses: actions/checkout@v3
       - name: Login docker
