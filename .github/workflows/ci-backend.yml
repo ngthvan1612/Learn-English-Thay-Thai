@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Login docker
-        run: echo $PAT | docker login ghcr.io -u ngthvan1612 --password-stdin 
+        run: echo "$PAT" | docker login ghcr.io -u ngthvan1612 --password-stdin 
       - name: Build backend
         run: cd services/backend/LFF.Backend && docker build -t ghcr.io/ngthvan1612/learn-english-thay-thai/backend .
       - name: Push image
