@@ -11,3 +11,4 @@ jobs:
     steps:
       - name: Build backend
         run:  ls && cd services/LFF.Backend && docker build -t backend .
+
