@@ -4,7 +4,7 @@ on:
     paths:
       - "services/frontend/manager/**/*"
 jobs:
-  container-test-job:
+  ci-frontend-manager:
     runs-on: ubuntu-latest
     container:
       image: docker:dind

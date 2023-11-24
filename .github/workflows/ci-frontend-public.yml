@@ -1,10 +1,10 @@
-name: CI - Frontend public
+name: CI - Frontend Student
 on:
   pull_request:
     paths:
       - "services/frontend/student/**/*"
 jobs:
-  container-test-job:
+  ci-frontend-student:
     runs-on: ubuntu-latest
     container:
       image: docker:dind
