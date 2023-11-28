@@ -37,8 +37,17 @@ namespace LFF.API
             services.RegisterRepositories(this.Configuration);
             services.RegisterServices(this.Configuration);
 
-            services.Configure<AppSettings>(options => Configuration.GetSection("AppSettings").Bind(options));
-            services.Configure<PasswordSettings>(options => Configuration.GetSection("StorePasswordSetting").Bind(options));
+            services.Configure<AppSettings>(options => 
+            {
+                options.Audience = Environment.GetEnvironmentVariable("APP_AUDIENCE") ?? throw new Exception("APP_AUDIENCE not found");
+                options.Issuer = Environment.GetEnvironmentVariable("APP_ISSUER") ?? throw new Exception("APP_ISSUER not found");
+                options.Secret = Environment.GetEnvironmentVariable("APP_SECRET") ?? throw new Exception("APP_SECRET not found");
+            });
+
+            services.Configure<PasswordSettings>(options =>
+            {
+                options.Algorithm = Environment.GetEnvironmentVariable("PASSWORD_ALGORITHM") ?? throw new Exception("PASSWORD_ALGORITHM not found");
+            });
 
             services.Configure<ApiBehaviorOptions>(options =>
             {
