@@ -11,6 +11,7 @@ services:
       DB_CONN: User ID=admin;Password=1234;Host=db;Port=5432;Database=hoc_tieng_anh;
     networks:
       - mang-noi-bo-backend
+      - mang-gateway
   db:
     image: postgres
     environment:
@@ -20,8 +21,46 @@ services:
       PGDATA: /data
     networks:
       - mang-noi-bo-backend
+
   frontend-admin:
     image: ngthvan1612/learn-english-thay-thai-frontend-admin
+    networks:
+      - mang-gateway
+
+  frontend-login:
+    image: ngthvan1612/learn-english-thay-thai-frontend-login
+    networks:
+      - mang-gateway
+
+
+  frontend-common:
+    image: ngthvan1612/learn-english-thay-thai-frontend-common
+    networks:
+      - mang-gateway
+
+  frontend-student:
+    image: ngthvan1612/learn-english-thay-thai-frontend-student
+    networks:
+      - mang-gateway
+
+  frontend-staff:
+    image: ngthvan1612/learn-english-thay-thai-frontend-staff
+    networks:
+      - mang-gateway
+
+  frontend-teacher:
+    image: ngthvan1612/learn-english-thay-thai-frontend-teacher
+    networks:
+      - mang-gateway
+
+  api-gateway:
+    image: nginx:1.18.0
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    networks:
+      - mang-gateway
+    ports:
+      - 85:80
 
 networks:
   mang-noi-bo-backend: {}
