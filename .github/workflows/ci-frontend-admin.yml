@@ -13,4 +13,6 @@ jobs:
       - name: Login docker
         run: docker login -u ngthvan1612 -p NguyenVan104
       - name: Build Frontend
-        run: cd services/frontend/manager && docker build -t ngthvan1612/learn-english-thay-thai-frontend-admin .
+        run: docker build -t ngthvan1612/learn-english-thay-thai-frontend-admin .
+      - name: Push image
+        run: docker push ngthvan1612/learn-english-thay-thai-frontend-admin
