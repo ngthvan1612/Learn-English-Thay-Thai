@@ -6,6 +6,7 @@ COPY . .
 RUN rm -rf ./tmp && dotnet restore && \
     dotnet publish -c Release -o out && \
     dotnet tool install --global dotnet-ef --version 6.* && \
+    dotnet tool restore && \
     export PATH="$PATH:/root/.dotnet/tools" && \
     dotnet ef migrations bundle -r linux-x64 --force
 

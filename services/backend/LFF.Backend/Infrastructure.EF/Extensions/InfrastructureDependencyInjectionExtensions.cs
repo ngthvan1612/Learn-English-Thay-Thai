@@ -34,7 +34,7 @@ namespace LFF.Infrastructure.EF.Extensions
     {
       services.AddDbContextFactory<AppDbContext>(options =>
       {
-        string psqlConn = Environment.GetEnvironmentVariable("DB_CONN") ?? throw new Exception("DB_CONN not found");
+        string psqlConn = Environment.GetEnvironmentVariable("DB_CONN") ?? "";
         options.UseNpgsql(psqlConn);
       });
       return services;

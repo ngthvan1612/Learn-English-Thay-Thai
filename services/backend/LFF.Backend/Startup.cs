@@ -39,14 +39,14 @@ namespace LFF.API
 
             services.Configure<AppSettings>(options => 
             {
-                options.Audience = Environment.GetEnvironmentVariable("APP_AUDIENCE") ?? throw new Exception("APP_AUDIENCE not found");
-                options.Issuer = Environment.GetEnvironmentVariable("APP_ISSUER") ?? throw new Exception("APP_ISSUER not found");
-                options.Secret = Environment.GetEnvironmentVariable("APP_SECRET") ?? throw new Exception("APP_SECRET not found");
+                options.Audience = Environment.GetEnvironmentVariable("APP_AUDIENCE") ?? "";
+                options.Issuer = Environment.GetEnvironmentVariable("APP_ISSUER") ?? "";
+                options.Secret = Environment.GetEnvironmentVariable("APP_SECRET") ?? "";
             });
 
             services.Configure<PasswordSettings>(options =>
             {
-                options.Algorithm = Environment.GetEnvironmentVariable("PASSWORD_ALGORITHM") ?? throw new Exception("PASSWORD_ALGORITHM not found");
+                options.Algorithm = Environment.GetEnvironmentVariable("PASSWORD_ALGORITHM") ?? "";
             });
 
             services.Configure<ApiBehaviorOptions>(options =>
