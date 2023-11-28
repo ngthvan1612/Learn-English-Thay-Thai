@@ -30,6 +30,7 @@ services:
       - mang-gateway
 
   frontend-login:
+    container_name: frontend-login
     image: ngthvan1612/learn-english-thay-thai-frontend-login
     restart: always
     networks:
@@ -69,6 +70,13 @@ services:
       - mang-gateway
     ports:
       - 85:80
+    depends_on:
+      - frontend-admin
+      - frontend-teacher
+      - frontend-staff
+      - frontend-common
+      - frontend-login
+      - backend
 
 networks:
   mang-noi-bo-backend: {}

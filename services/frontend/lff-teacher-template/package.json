@@ -27,7 +27,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && sed 's/\\/static/\\/teacher\\/static/g' ./build/index.html > temp && mv temp ./build/index.html && mkdir -p ./build/teacher/static && mv ./build/static/* ./build/teacher/static",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
