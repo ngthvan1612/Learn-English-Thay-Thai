@@ -1,6 +1,7 @@
 {
   "name": "react-lesson-axios-01",
   "version": "0.1.0",
+  "homepage": "/admin",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.5",

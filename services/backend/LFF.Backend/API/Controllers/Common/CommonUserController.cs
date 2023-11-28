@@ -3,6 +3,7 @@ using LFF.API.Helpers.Authorization;
 using LFF.Core.DTOs.Users.Requests;
 using LFF.Core.DTOs.Users.Responses;
 using LFF.Core.Services.UserServices;
+using LFF.Infrastructure.EF.Utils.PasswordUtils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Threading.Tasks;
@@ -17,10 +18,17 @@ namespace LFF.API.Controllers.Common
         private readonly IUserService _userService;
         private readonly AppSettings _appSettings;
 
-        public CommonUserController(IUserService _userService, IOptions<AppSettings> _appSettings)
+        public CommonUserController(IUserService _userService, IOptions<AppSettings> _appSettings, PasswordHasherManaged aa)
         {
             this._userService = _userService;
             this._appSettings = _appSettings.Value;
+            Console.WriteLine(aa.GetHashedPassword("1234"));
+        }
+
+        [HttpGet]
+        public string gg()
+        {
+            return "123";
         }
 
         [HttpPost("login")]
