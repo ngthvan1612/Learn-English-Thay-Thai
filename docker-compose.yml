@@ -8,7 +8,7 @@ services:
       APP_AUDIENCE: "Nhom 06"
       APP_ISSUER: "Nhom 06 Backend"
       APP_SECRET: 07264fa9bc21b8206474f56f0968dc15778fcf8cafb0a87af204ee87fc73c1d15f9881ae8100c51eb95e8ada085a008a2875315035a5b4c10725056cfb4f9622
-      DB_CONN: postgresql://db/hoc_tieng_anh?user=admin&password=1234
+      DB_CONN: User ID=admin;Password=1234;Host=db;Port=5432;Database=hoc_tieng_anh;
     depends_on:
       - db
   db:
