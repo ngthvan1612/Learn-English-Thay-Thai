@@ -2,9 +2,9 @@ name: CI - Frontend Admin
 on:
   pull_request:
     paths:
-      - "services/frontend/lff-student/**/*"
+      - "services/frontend/lff-common/**/*"
 jobs:
-  ci-frontend-lff-student:
+  ci-frontend-lff-common:
     runs-on: ubuntu-latest
     container:
       image: docker:dind
@@ -13,4 +13,4 @@ jobs:
       - name: Login docker
         run: docker login -u ngthvan1612 -p NguyenVan104
       - name: Build Frontend
-        run: cd services/frontend/manager && docker build -t ngthvan1612/learn-english-thay-thai-frontend-student .
+        run: cd services/frontend/manager && docker build -t ngthvan1612/learn-english-thay-thai-frontend-common .
