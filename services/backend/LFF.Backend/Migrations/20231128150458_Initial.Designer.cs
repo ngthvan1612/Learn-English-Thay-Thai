@@ -7,19 +7,22 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace LFF.Infrastructure.EF.Migrations
+#nullable disable
+
+namespace LFF.Backend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20221122135256_Remove_Submitted_From_StudentTestResult")]
-    partial class Remove_Submitted_From_StudentTestResult
+    [Migration("20231128150458_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .UseIdentityColumns()
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.0");
+                .HasAnnotation("ProductVersion", "6.0.0")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
             modelBuilder.Entity("LFF.Core.Entities.Classroom", b =>
                 {
@@ -167,6 +170,9 @@ namespace LFF.Infrastructure.EF.Migrations
                         .IsRequired()
                         .HasColumnType("datetime2");
 
+                    b.Property<bool?>("IsApproved")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime?>("LastUpdatedAt")
                         .IsRequired()
                         .HasColumnType("datetime2");
@@ -177,6 +183,9 @@ namespace LFF.Infrastructure.EF.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ReasonForNotApproving")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("StartTime")
@@ -292,6 +301,9 @@ namespace LFF.Infrastructure.EF.Migrations
                         .IsRequired()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime?>("SubmittedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<Guid?>("TestId")
                         .IsRequired()
                         .HasColumnType("uniqueidentifier");
@@ -336,11 +348,13 @@ namespace LFF.Infrastructure.EF.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id")
-                        .HasName("PK_StudentTestResult_Id")
-                        .IsClustered(false);
+                        .HasName("PK_StudentTestResult_Id");
 
-                    b.HasAlternateKey("QuestionId", "StudentTestId")
-                        .IsClustered();
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"), false);
+
+                    b.HasAlternateKey("QuestionId", "StudentTestId");
+
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasAlternateKey("QuestionId", "StudentTestId"));
 
                     b.HasIndex("StudentTestId");
 

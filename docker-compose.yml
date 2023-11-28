@@ -1,0 +1,20 @@
+version: "3.7"
+
+services:
+  backend:
+    image: ngthvan1612/learn-english-thay-thai-backend
+    restart: always
+    environment:
+      APP_AUDIENCE: "Nhom 06"
+      APP_ISSUER: "Nhom 06 Backend"
+      APP_SECRET: 07264fa9bc21b8206474f56f0968dc15778fcf8cafb0a87af204ee87fc73c1d15f9881ae8100c51eb95e8ada085a008a2875315035a5b4c10725056cfb4f9622
+      DB_CONN: postgresql://db/hoc_tieng_anh?user=admin&password=1234
+    depends_on:
+      - db
+  db:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: "1234"
+      POSTGRES_USER: admin
+      POSTGRES_DB: hoc_tieng_anh
+      PGDATA: /data

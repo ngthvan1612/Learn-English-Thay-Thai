@@ -1,7 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace LFF.Infrastructure.EF.Migrations
+#nullable disable
+
+namespace LFF.Backend.Migrations
 {
     public partial class Initial : Migration
     {
@@ -21,7 +23,6 @@ namespace LFF.Infrastructure.EF.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Course_Id", x => x.Id);
-                    table.UniqueConstraint("IX_Course_Name", x => x.Name);
                 });
 
             migrationBuilder.CreateTable(
@@ -43,9 +44,6 @@ namespace LFF.Infrastructure.EF.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_User_Id", x => x.Id);
-                    table.UniqueConstraint("IX_User_CMND", x => x.CMND);
-                    table.UniqueConstraint("IX_User_Email", x => x.Email);
-                    table.UniqueConstraint("IX_User_Username", x => x.Username);
                 });
 
             migrationBuilder.CreateTable(
@@ -65,7 +63,6 @@ namespace LFF.Infrastructure.EF.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Classroom_Id", x => x.Id);
-                    table.UniqueConstraint("IX_Classroom_Name", x => x.Name);
                     table.ForeignKey(
                         name: "FK_Classrooms_Courses_CourseId",
                         column: x => x.CourseId,
@@ -85,12 +82,15 @@ namespace LFF.Infrastructure.EF.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LessonContent = table.Column<string>(type: "NVARCHAR(MAX)", nullable: false),
                     StartTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ClassId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LastUpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    LastUpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsApproved = table.Column<bool>(type: "bit", nullable: true),
+                    ReasonForNotApproving = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -130,7 +130,7 @@ namespace LFF.Infrastructure.EF.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Lectures",
+                name: "Lecture",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -146,7 +146,7 @@ namespace LFF.Infrastructure.EF.Migrations
                 {
                     table.PrimaryKey("PK_Lecture_Id", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Lectures_Lessons_LessonId",
+                        name: "FK_Lecture_Lessons_LessonId",
                         column: x => x.LessonId,
                         principalTable: "Lessons",
                         principalColumn: "Id");
@@ -162,7 +162,7 @@ namespace LFF.Infrastructure.EF.Migrations
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     NumberOfAttempts = table.Column<int>(type: "int", nullable: false),
-                    Time = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Time = table.Column<int>(type: "int", nullable: false),
                     LessonId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -210,7 +210,8 @@ namespace LFF.Infrastructure.EF.Migrations
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LastUpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    LastUpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    SubmittedOn = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -241,7 +242,10 @@ namespace LFF.Infrastructure.EF.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_StudentTestResult_Id", x => x.Id);
+                    table.PrimaryKey("PK_StudentTestResult_Id", x => x.Id)
+                        .Annotation("SqlServer:Clustered", false);
+                    table.UniqueConstraint("AK_StudentTestResults_QuestionId_StudentTestId", x => new { x.QuestionId, x.StudentTestId })
+                        .Annotation("SqlServer:Clustered", true);
                     table.ForeignKey(
                         name: "FK_StudentTestResults_Questions_QuestionId",
                         column: x => x.QuestionId,
@@ -265,8 +269,8 @@ namespace LFF.Infrastructure.EF.Migrations
                 column: "TeacherId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Lectures_LessonId",
-                table: "Lectures",
+                name: "IX_Lecture_LessonId",
+                table: "Lecture",
                 column: "LessonId");
 
             migrationBuilder.CreateIndex(
@@ -288,11 +292,6 @@ namespace LFF.Infrastructure.EF.Migrations
                 name: "IX_Registers_StudentId",
                 table: "Registers",
                 column: "StudentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_StudentTestResults_QuestionId",
-                table: "StudentTestResults",
-                column: "QuestionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_StudentTestResults_StudentTestId",
@@ -318,7 +317,7 @@ namespace LFF.Infrastructure.EF.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Lectures");
+                name: "Lecture");
 
             migrationBuilder.DropTable(
                 name: "Registers");
