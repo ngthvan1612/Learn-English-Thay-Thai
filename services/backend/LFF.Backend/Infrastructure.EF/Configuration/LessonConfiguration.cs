@@ -17,7 +17,7 @@ namespace LFF.Infrastructure.EF.Configuration
             modelBuilder.Property(u => u.EndTime).IsRequired();
             modelBuilder.Property(u => u.CreatedAt).IsRequired();
             modelBuilder.Property(u => u.LastUpdatedAt).IsRequired();
-            modelBuilder.Property(u => u.LessonContent).IsRequired().HasColumnType("NVARCHAR(MAX)");
+            modelBuilder.Property(u => u.LessonContent).IsRequired();
 
             modelBuilder
               .HasOne(u => u.Class)

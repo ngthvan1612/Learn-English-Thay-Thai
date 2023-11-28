@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace LFF.Backend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231128152329_Initial")]
+    [Migration("20231128152931_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -179,7 +179,7 @@ namespace LFF.Backend.Migrations
 
                     b.Property<string>("LessonContent")
                         .IsRequired()
-                        .HasColumnType("NVARCHAR(MAX)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -348,11 +348,9 @@ namespace LFF.Backend.Migrations
                         .HasColumnType("uuid");
 
                     b.HasKey("Id")
-                        .HasName("PK_StudentTestResult_Id")
-                        .HasAnnotation("SqlServer:Clustered", false);
+                        .HasName("PK_StudentTestResult_Id");
 
-                    b.HasAlternateKey("QuestionId", "StudentTestId")
-                        .HasAnnotation("SqlServer:Clustered", true);
+                    b.HasAlternateKey("QuestionId", "StudentTestId");
 
                     b.HasIndex("StudentTestId");
 

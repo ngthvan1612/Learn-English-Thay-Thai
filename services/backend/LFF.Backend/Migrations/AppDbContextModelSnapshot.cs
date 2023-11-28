@@ -177,7 +177,7 @@ namespace LFF.Backend.Migrations
 
                     b.Property<string>("LessonContent")
                         .IsRequired()
-                        .HasColumnType("NVARCHAR(MAX)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -346,11 +346,9 @@ namespace LFF.Backend.Migrations
                         .HasColumnType("uuid");
 
                     b.HasKey("Id")
-                        .HasName("PK_StudentTestResult_Id")
-                        .HasAnnotation("SqlServer:Clustered", false);
+                        .HasName("PK_StudentTestResult_Id");
 
-                    b.HasAlternateKey("QuestionId", "StudentTestId")
-                        .HasAnnotation("SqlServer:Clustered", true);
+                    b.HasAlternateKey("QuestionId", "StudentTestId");
 
                     b.HasIndex("StudentTestId");
 

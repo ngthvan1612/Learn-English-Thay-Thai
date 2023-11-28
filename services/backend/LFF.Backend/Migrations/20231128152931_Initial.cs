@@ -82,7 +82,7 @@ namespace LFF.Backend.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false),
-                    LessonContent = table.Column<string>(type: "NVARCHAR(MAX)", nullable: false),
+                    LessonContent = table.Column<string>(type: "text", nullable: false),
                     StartTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     EndTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     ClassId = table.Column<Guid>(type: "uuid", nullable: false),
