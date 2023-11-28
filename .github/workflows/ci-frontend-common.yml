@@ -1,4 +1,4 @@
-name: CI - Frontend Admin
+name: CI - Frontend Common
 on:
   pull_request:
     paths:
