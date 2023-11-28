@@ -4,7 +4,7 @@ import { getAccessToken } from "../authorization";
 const REACT_BACKEND_URL =
   process.env.NODE_ENV == "development"
     ? "https://localhost:5001/api/v1.0/"
-    : "https://api.test01.uteoj.com/api/v1.0/";
+    : "";
 
 const instance = axios.create({
   baseURL: REACT_BACKEND_URL,
