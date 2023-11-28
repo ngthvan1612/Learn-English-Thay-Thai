@@ -2,7 +2,7 @@ name: CI - Frontend Admin
 on:
   pull_request:
     paths:
-      - "services/frontend/lff-staff/**/*"
+      - "services/frontend/lff-staff-template/**/*"
 jobs:
   ci-frontend-lff-staff:
     runs-on: ubuntu-latest
