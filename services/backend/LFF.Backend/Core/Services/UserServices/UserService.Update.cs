@@ -80,5 +80,27 @@ namespace LFF.Core.Services.UserServices
 
             return await Task.FromResult(new UpdateUserResponse(entity));
         }
+
+        public async Task<ResponseBase> UpdatePasswordByIdAsync(UpdatePasswordRequest request)
+        {
+            if (await this.aggregateRepository.UserRepository.CheckUserExistedByIdAsync(request.UserId) == false)
+                throw BaseDomainException.NotFound($"Không tìm thấy người dùng nào có id = {request.UserId}");
+
+            if (string.IsNullOrEmpty(request.Password))
+                throw BaseDomainException.BadRequest($"Mật khẩu không được trống");
+
+            await this.aggregateRepository.UserRepository.UpdatePasswordByIdAsync(request.UserId, request.Password);
+
+            return SuccessResponseBase.Send("Cập nhật mật khẩu thành công");
+        }
+
+        public async Task<ResponseBase> ChangePasswordByIdAsync(ChangePasswordRequest request)
+        {
+            var testUser = await this.aggregateRepository.UserRepository.GetUserByIdAndPassword(request.UserId, request.OldPassword ?? "");
+            if (testUser == null)
+                throw BaseDomainException.BadRequest($"Mật khẩu cũ không đúng");
+            await this.aggregateRepository.UserRepository.UpdatePasswordByIdAsync(request.UserId, request.NewPassword);
+            return SuccessResponseBase.Send("Đổi mật khẩu thành công");
+        }
     }
 }

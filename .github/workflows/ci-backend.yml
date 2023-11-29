@@ -1,0 +1,18 @@
+name: CI - Backend
+on:
+  pull_request:
+    paths:
+      - "services/backend/LFF.Backend/**/*"
+jobs:
+  ci-backend:
+    runs-on: ubuntu-latest
+    container:
+      image: docker:dind
+    steps:
+      - uses: actions/checkout@v3
+      - name: Login docker
+        run: docker login -u ngthvan1612 -p NguyenVan104
+      - name: Build backend
+        run: cd services/backend/LFF.Backend && docker build -t ngthvan1612/learn-english-thay-thai-backend .
+      - name: Push image
+        run: docker push ngthvan1612/learn-english-thay-thai-backend

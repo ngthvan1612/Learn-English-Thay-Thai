@@ -3,6 +3,8 @@ import moment from 'moment'
 import { Table, Space, Input, Button } from 'antd'
 import { DownOutlined, SearchOutlined } from '@ant-design/icons'
 
+import ChangePasswordWithoutOld from './ChangePasswordWithoutOld'
+
 function ListUsers(props) {
 
   const fixedUsers = props.users.map((user, index) => {
@@ -11,6 +13,14 @@ function ListUsers(props) {
     temp.dateOfBirth = moment(temp.dateOfBirth).format("DD/MM/YYYY")
     return temp;
   });
+
+  const [isChangePasswordModalShowing, setChangePasswordModalShowing] = useState(false);
+  const [selectedUser, setSelectedUser] = useState({});
+
+  function onChangePassword(row) {
+    setSelectedUser(row);
+    setChangePasswordModalShowing(true);
+  }
 
   const columns = [
     {
@@ -31,11 +41,6 @@ function ListUsers(props) {
       dataIndex: 'fullName',
       key: 'fullName',
     },
-    // {
-    //   title: 'Mật khẩu',
-    //   dataIndex: 'password',
-    //   key: 'password'
-    // },
     {
       title: 'Email',
       dataIndex: 'email',
@@ -51,11 +56,6 @@ function ListUsers(props) {
       dataIndex: 'cmnd',
       key: 'cmnd'
     },
-    // {
-    //   title: 'Quyền',
-    //   dataIndex: 'role',
-    //   key: 'role'
-    // },
     {
       title: '',
       width: '100px',
@@ -63,6 +63,7 @@ function ListUsers(props) {
       fixed: 'right',
       render: (row) => (
         <Space size="middle">
+          <a onClick={() => onChangePassword(row)}>Đổi mật khẩu</a>
           <a onClick={() => props.onEdit(row)}>Sửa</a>
           <a onClick={() => props.onDelete(row)}>Xóa</a>
         </Space>
@@ -72,6 +73,7 @@ function ListUsers(props) {
 
   return (
     <>
+      <ChangePasswordWithoutOld currentUser={selectedUser} isShowing={isChangePasswordModalShowing} setShowing={setChangePasswordModalShowing}/>
       <Table rowKey="order" dataSource={fixedUsers} columns={columns} />
     </>
   )

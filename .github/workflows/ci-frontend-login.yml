@@ -1,0 +1,18 @@
+name: CI - Frontend Login
+on:
+  pull_request:
+    paths:
+      - "services/frontend/lff-login/**/*"
+jobs:
+  ci-frontend-lff-login:
+    runs-on: ubuntu-latest
+    container:
+      image: docker:dind
+    steps:
+      - uses: actions/checkout@v3
+      - name: Login docker
+        run: docker login -u ngthvan1612 -p NguyenVan104
+      - name: Build Frontend
+        run: cd services/frontend/lff-login && docker build -t ngthvan1612/learn-english-thay-thai-frontend-login .
+      - name: Push image
+        run: docker push ngthvan1612/learn-english-thay-thai-frontend-login

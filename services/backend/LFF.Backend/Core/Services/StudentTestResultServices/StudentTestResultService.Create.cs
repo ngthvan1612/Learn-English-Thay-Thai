@@ -15,6 +15,7 @@ namespace LFF.Core.Services.StudentTestResultServices
             var questionRepository = this.aggregateRepository.QuestionRepository;
             var studentTestRepository = this.aggregateRepository.StudentTestRepository;
             var studentTestResultRepository = this.aggregateRepository.StudentTestResultRepository;
+
             var entity = new StudentTestResult();
             entity.StudentTestId = model.StudentTestId;
             entity.QuestionId = model.QuestionId;
@@ -27,6 +28,7 @@ namespace LFF.Core.Services.StudentTestResultServices
             {
                 throw BaseDomainException.BadRequest($"không tồn tại học viên kiểm tra nào với id = {model.StudentTestId}");
             }
+
             if (!await questionRepository.CheckQuestionExistedByIdAsync(model.QuestionId))
             {
                 throw BaseDomainException.BadRequest($"không tồn tại câu hỏi nào với id = {model.QuestionId}");
