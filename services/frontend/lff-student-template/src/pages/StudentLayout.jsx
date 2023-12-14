@@ -142,8 +142,7 @@ const App = () => {
             textAlign: 'center',
           }}
         >
-          Mẫu thiết kế dựa trên <a href='https://ant.design/'>Ant design 2018</a><br />
-          <span style={{ color: 'red', fontWeight: 'bold' }}>Bản quyền được bảo lưu - Nhóm 01 CNPM</span>
+          
         </Footer>
       </Layout>
     </Layout>

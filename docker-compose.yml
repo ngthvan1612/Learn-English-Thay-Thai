@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
   backend:
-    image: ngthvan1612/learn-english-thay-thai-backend
+    image: ngthvan1612/learn-english-thay-thai-2023-backend
     restart: always
     environment:
       APP_AUDIENCE: "Nhom 06"
@@ -24,39 +24,39 @@ services:
       - mang-noi-bo-backend
 
   frontend-admin:
-    image: ngthvan1612/learn-english-thay-thai-frontend-admin
+    image: ngthvan1612/learn-english-thay-thai-2023-frontend-admin
     restart: always
     networks:
       - mang-gateway
 
   frontend-login:
     container_name: frontend-login
-    image: ngthvan1612/learn-english-thay-thai-frontend-login
+    image: ngthvan1612/learn-english-thay-thai-2023-frontend-login
     restart: always
     networks:
       - mang-gateway
 
 
   frontend-common:
-    image: ngthvan1612/learn-english-thay-thai-frontend-common
+    image: ngthvan1612/learn-english-thay-thai-2023-frontend-common
     restart: always
     networks:
       - mang-gateway
 
   frontend-student:
-    image: ngthvan1612/learn-english-thay-thai-frontend-student
+    image: ngthvan1612/learn-english-thay-thai-2023-frontend-student
     restart: always
     networks:
       - mang-gateway
 
   frontend-staff:
-    image: ngthvan1612/learn-english-thay-thai-frontend-staff
+    image: ngthvan1612/learn-english-thay-thai-2023-frontend-staff
     restart: always
     networks:
       - mang-gateway
 
   frontend-teacher:
-    image: ngthvan1612/learn-english-thay-thai-frontend-teacher
+    image: ngthvan1612/learn-english-thay-thai-2023-frontend-teacher
     restart: always
     networks:
       - mang-gateway
