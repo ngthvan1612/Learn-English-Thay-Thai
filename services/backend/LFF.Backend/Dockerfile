@@ -20,3 +20,4 @@ WORKDIR /app
 
 CMD ./efbundle && \
     dotnet LFF.Backend.dll --urls="http://0.0.0.0"
+    
