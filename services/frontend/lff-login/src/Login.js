@@ -21,7 +21,7 @@ const Login = () => {
         if (USER_ROLE == "TEACHER") window.location.href = "/teacher";
         else if (USER_ROLE == "STUDENT") window.location.href = "/student";
         else if (USER_ROLE == "ADMIN") window.location.href = "/admin";
-        else if (USER_ROLE == "STAFF") window.location.href = "/STAFF";
+        else if (USER_ROLE == "STAFF") window.location.href = "/staff";
       })
       .catch((error) => {
         console.log(error);
